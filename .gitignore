@@ -1,7 +1,7 @@
 #github boilerplate .gitignore
 #https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore
 
-examples/Attendance-Monitoring
+examples/Attendance-Monitoring/
 
 /.vscode
 pyrightconfig.json

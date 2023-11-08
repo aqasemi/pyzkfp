@@ -1,6 +1,6 @@
 import sys; sys.dont_write_bytecode = True
 import logging
-from libzkfp import ZKFP2
+from pyzkfp import ZKFP2
 
 from time import sleep
 from socketio import Client
