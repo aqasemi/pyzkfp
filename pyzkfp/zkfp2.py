@@ -5,7 +5,12 @@ import clr
 
 from .errors_handler import *
 from ._construct.zkfp import *
-from PIL import Image
+
+try:
+    from PIL import Image
+except ImportError:
+    pass
+
 from io import BytesIO
 from base64 import b64encode
 
