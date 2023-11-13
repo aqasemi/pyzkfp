@@ -3,19 +3,29 @@
 
 [![PyPI version](https://badge.fury.io/py/pyzkfp.svg)](https://badge.fury.io/py/pyzkfp)
 
-A Python wrapper library for ZKFinger SDK Windows that supports ZKTeco fingerprint scanners SLK20R and ZK series, including ZK9500, ZK6500, ZK8500R.
-
-
 ## Overview
+Because ZKTeco offical SDKs suck and are unstable and full of bugs, I decided to make a simple python wrapper library of their SDKs and save you from the agony of using their products. I’m sure Microsoft is not behind the dev team. bleh.
 
-This library provides a Python interface for ZKFinger Reader devices through the ZKFinger Reader SDK in Python. You can use it to interact with ZKFinger Reader devices, capture fingerprint images, perform fingerprint comparisons 1:1 and 1:N, and more.
+## Why?
+why not?
 
+## Compatibility
+This library can connect to `SLK20R` and ZK series, including `ZK9500`, `ZK6500`, `ZK8500R` devices.
+ 
 ## Installation
-You can install this library via pip:
+- You have to first install the ZKFinger SDK from the offical website.
+- Then install this library via pip:
+    ```bash
+    pip install pyzkfp
+    ```
 
-```bash
-pip install pyzkfp
-```
+## Features
+- Initialize and interact with ZKFinger Reader devices.
+- Capture fingerprint images.
+- Perform fingerprint 1:1 comparisons.
+- Perform fingerprint 1:N comparisons.
+- Register and identify users.
+- Light & Beep control functions.
 
 ## Usage
 Here's a simple example of how to use this library:
@@ -95,10 +105,5 @@ zkfp2.Terminate()
 
 For more detailed usage instructions, please refer to the example folder (WIP).
 
-## Features
-- Initialize and interact with ZKFinger Reader devices.
-- Capture fingerprint images.
-- Perform fingerprint 1:1 comparisons.
-- Perform fingerprint 1:N comparisons.
-- Register and identify users.
-- Light & Beep control functions.
+## Support My Work
+If you found this project useful, please pretend to be an investor and contact ZKteco to try to scam them using the pyramid scheme, as this would really help spread the good word of this repository
