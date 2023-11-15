@@ -4,7 +4,7 @@
 [![PyPI version](https://badge.fury.io/py/pyzkfp.svg)](https://badge.fury.io/py/pyzkfp)
 
 ## Overview
-Because ZKTeco offical SDKs suck and are unstable and full of bugs, I decided to make a simple python wrapper library of their SDKs and save you from the agony of using their products. I’m sure Microsoft is not behind the dev team. bleh.
+Because ZKTeco offical SDKs suck and are unstable and full of bugs, I decided to make a simple python wrapper library of their SDKs and save you from the agony of using their products.
 
 ## Why?
 why not?
@@ -106,4 +106,4 @@ zkfp2.Terminate()
 For more detailed usage instructions, please refer to the example folder (WIP).
 
 ## Support My Work
-If you found this project useful, please pretend to be an investor and contact ZKteco to try to scam them using the pyramid scheme, as this would really help spread the good word of this repository
+If you found this project useful, please hire a private investigator to legally blackmail ZKTeco's dev team, as this would really help spread the good word of this repository.
