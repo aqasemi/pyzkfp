@@ -13,7 +13,7 @@ why not?
 This library can connect to `SLK20R` and ZK series, including `ZK9500`, `ZK6500`, `ZK8500R` devices.
  
 ## Installation
-- You have to first install the ZKFinger SDK from the offical website.
+- You have to first install the ZKFinger SDK from the offical website [here](https://www.zkteco.com/en/Biometrics_Module_SDK/ZKFinger-SDK-for-Windows) or through this direct [link](https://new-website-file.s3.ap-southeast-1.amazonaws.com/files/20220725/9774a946c3f659ddf2ae90bc8dadc3eb.rar) (might stop working) 
 - Then install this library via pip:
     ```bash
     pip install pyzkfp
