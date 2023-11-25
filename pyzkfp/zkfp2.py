@@ -1,10 +1,15 @@
 from threading import Thread
 from time import sleep
+import os, sys
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+sys.path.append(os.path.join(dir_path, "dll"))
 
 import clr
 
-from ._construct.errors_handler import *
-from ._construct.zkfp import * # this file adds code snippets hints. 
+from pyzkfp._construct.errors_handler import *
+from pyzkfp._construct.zkfp import * # this file adds code snippets hints. 
 
 try:
     from PIL import Image
@@ -14,7 +19,7 @@ except ImportError:
 from io import BytesIO
 from base64 import b64encode
 
-clr.AddReference("libzkfpcsharp")
+clr.AddReference("pyzkfp/libzkfpcsharp")
 clr.AddReference("System")
 
 from System import Array, Byte # ignore the warning

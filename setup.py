@@ -6,10 +6,11 @@ DESCRIPTION = "A Python wrapper library for ZKFinger fingerprint scanner softwar
 base_path = Path(__file__).parent
 long_description = (base_path / "Readme.md").read_text()
 
+
 setup(
     name='pyzkfp',
     packages=find_packages(),
-    version='0.1.1',
+    version='0.1.2',
     license="GPLv3",
     description=DESCRIPTION,
     long_description=long_description,
@@ -19,6 +20,8 @@ setup(
     author_email='alqasemy2020@gmail.com',
     install_requires=['pythonnet', 'pillow'],
     keywords=['python', 'fingerprint', 'scanner', 'wrapper', 'library', 'zkteco', 'zkfinger', 'zkfp', 'zklib', 'zkaccess', 'zktime'],
+    package_dir={'pyzkfp': 'pyzkfp'},
+    package_data={'pyzkfp': ['libzkfpcsharp.dll']},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License (GPL)",
