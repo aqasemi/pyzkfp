@@ -1,3 +1,6 @@
+# This file is just for linting and snippet hints. You can ignore it.
+
+
 class zkfp:
     def __init__(self):
         self.hDevice: int = 0

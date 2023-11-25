@@ -1,4 +1,4 @@
-import sys; sys.dont_write_bytecode = True
+import sys; sys.dont_write_bytecode = True # don't create __pycache__
 import logging
 from pyzkfp import ZKFP2
 

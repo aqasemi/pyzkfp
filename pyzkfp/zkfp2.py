@@ -3,8 +3,8 @@ from time import sleep
 
 import clr
 
-from .errors_handler import *
-from ._construct.zkfp import *
+from ._construct.errors_handler import *
+from ._construct.zkfp import * # this file adds code snippets hints. 
 
 try:
     from PIL import Image
@@ -24,7 +24,7 @@ from libzkfpcsharp import * # here too
 
 class ZKFP2:
     """
-    Python wrapper for ZKFinger Reader SDK in C#.
+    Python wrapper for ZKFinger Reader SDK.
     """
 
     def __init__(self):
@@ -433,16 +433,19 @@ class ZKFP2:
         return template
 
 
-    def Light(self, c, duration=0.5):
+    def Light(self, color, duration=0.5):
         def light_thread():
-            code = {"white": 101, "green": 102, "red": 103}
-            if c not in code:
-                raise ValueError(f"Invalid color: {c}")
+            colors_translation = {"white": 101, "green": 102, "red": 103}
+            if color not in colors_translation:
+                raise ValueError(f"Invalid color: {color}")
 
-            self.SetParameters(code[c])
+            self.SetParameters(colors_translation[color])
             sleep(duration)
-            self.SetParameters(code[c], self.Int2ByteArray(0)) 
-            # !NOTE: for some reason, the light doesn't turn off when set to 0. I haven't tested it on other devices besides the SLK20R. If you have a solution, please open a PR.
+            self.SetParameters(colors_translation[color], self.Int2ByteArray(0)) 
+
+            # !NOTE: for some reason, the light doesn't turn off when set to 0.
+            # I haven't tested it on other devices besides the SLK20R. 
+            # If you think you have a solution/addition to this part of the code, please open a PR.
 
         Thread(target=light_thread).start()
 

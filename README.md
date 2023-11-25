@@ -83,9 +83,14 @@ finger_id = 1 # The id of the finger to be registered
 zkfp2.DBAdd(finger_id, regTemp)
 ```
 
-### Store and load templates from database for later use
-you can store `regTemp` (the result of the 3 merged templates) in your favorite database and use it later for direct identification after adding it to the device's database with the `DBAdd` method. 
+### Storing and Loading Templates from an External Database for Future Use
+
+Given that the device's memory clears upon shutdown, this step is crucial for preserving data. You have the option to store `regTemp` (the final result of the the three merged templates) in your preferred database to retrieve them for later use. The segment of code responsible for loading the registered templates from the database to the device's memory should be run after the device's initialization. Here is a simple way to do it.
+
 ```python
+
+members = ... # load members' `regTemp` and their corresponding fingerPrintId from your database.
+
 for member in members:
     fid, temp = member
     zkfp2.DBAdd(fid, temp)
