@@ -9,7 +9,7 @@ long_description = (base_path / "Readme.md").read_text()
 setup(
     name='pyzkfp',
     packages=find_packages(),
-    version='0.0.3',
+    version='0.1.1',
     license="GPLv3",
     description=DESCRIPTION,
     long_description=long_description,
@@ -17,7 +17,7 @@ setup(
     author='Amjed Alqasemi',
     url='https://github.com/alqasemy2020/pyzkfp',
     author_email='alqasemy2020@gmail.com',
-    install_requires=['pythonnet', 'PIL'],
+    install_requires=['pythonnet', 'pillow'],
     keywords=['python', 'fingerprint', 'scanner', 'wrapper', 'library', 'zkteco', 'zkfinger', 'zkfp', 'zklib', 'zkaccess', 'zktime'],
     classifiers=[
         "Programming Language :: Python :: 3",
