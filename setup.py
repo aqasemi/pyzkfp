@@ -10,7 +10,7 @@ long_description = (base_path / "Readme.md").read_text()
 setup(
     name='pyzkfp',
     packages=find_packages(),
-    version='0.1.3',
+    version='0.1.4',
     license="GPLv3",
     description=DESCRIPTION,
     long_description=long_description,
@@ -21,7 +21,7 @@ setup(
     install_requires=['pythonnet', 'pillow'],
     keywords=['python', 'fingerprint', 'scanner', 'wrapper', 'library', 'zkteco', 'zkfinger', 'zkfp', 'zklib', 'zkaccess', 'zktime'],
     package_dir={'pyzkfp': 'pyzkfp'},
-    package_data={'pyzkfp': ['libzkfpcsharp.dll']},
+    package_data={'pyzkfp': ['dll/*.dll']},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License (GPL)",
