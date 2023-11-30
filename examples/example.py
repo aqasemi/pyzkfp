@@ -22,7 +22,7 @@ class FingerprintScanner:
 
         self.capture = None
         self.register = False
-        self.fid = 0
+        self.fid = 1
 
         self.keep_alive = True
 
@@ -30,9 +30,9 @@ class FingerprintScanner:
     def initialize_zkfp2(self):
         self.zkfp2 = ZKFP2()
         self.zkfp2.Init()
-        self.logger.info(f"{(i := self.zkfp2.GetDeviceCount())} Device{'s' if i > 1 else ''} found, Connecting to the first device.")
+        self.logger.info(f"{(i := self.zkfp2.GetDeviceCount())} Devices found. Connecting to the first device.")
         self.zkfp2.OpenDevice(0)
-        self.zkfp2.Light('green')
+        self.zkfp2.Light("green")
 
 
     def capture_handler(self):
@@ -57,7 +57,7 @@ class FingerprintScanner:
                         self.zkfp2.Light('green')
                         self.templates.append(tmp)
 
-                        message = f"Finger {len(self.templates)} registered successfully!" + (f"{3-len(self.templates)} presses left." if 3-len(self.templates) > 0 else '')
+                        message = f"Finger {len(self.templates)} registered successfully! " + (f"{3-len(self.templates)} presses left." if 3-len(self.templates) > 0 else '')
                         self.logger.info(message)
 
                         # blob_image = self.zkfp2.Blob2Base64String(img) # convert the image to base64 string
@@ -98,7 +98,7 @@ class FingerprintScanner:
                 capture = self.zkfp2.AcquireFingerprint()
                 if capture and not self.capture:
                     self.capture = capture
-                    Thread(target=self._capture_handler).start()
+                    Thread(target=self._capture_handler, daemon=True).start()
                 sleep(0.1)
         except KeyboardInterrupt:
             self.logger.info("Shutting down...")
