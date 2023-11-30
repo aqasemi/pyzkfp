@@ -19,7 +19,7 @@ except ImportError:
 from io import BytesIO
 from base64 import b64encode
 
-clr.AddReference("pyzkfp/libzkfpcsharp")
+clr.AddReference("libzkfpcsharp")
 clr.AddReference("System")
 
 from System import Array, Byte # ignore the warning
@@ -37,10 +37,14 @@ class ZKFP2:
         Initialize the ZKFP2 class and load the DLL.
         """
         self.zkfp2 = zkfp2()
+        self._zkfp  = zkfp()
         self.devHandle: int = None
         self.dbHandle: int = None
-        self.Width = None
-        self.Height = None
+
+        self.dev_serial_number: str = None
+
+        self.width = None
+        self.height = None
 
 
     def _handle_error(self, err_code):
@@ -110,14 +114,15 @@ class ZKFP2:
             `devHandle`: Device handle.
         """
         self.devHandle = self.zkfp2.OpenDevice(index)
+
+        # Get device serial number and image width and height
+        self._zkfp.Initialize()
+        self._zkfp.OpenDevice(index)
+        self.dev_serial_number = self._zkfp.devSn
+        self.width  = self._zkfp.imageWidth
+        self.height = self._zkfp.imageHeight
+
         self.DBInit()
-        # Get image width and height
-        paramValue = self.GetParameters(1)
-        self.Width = self.ByteArray2Int(paramValue)
-
-        paramValue = self.GetParameters(2)
-        self.Height = self.ByteArray2Int(paramValue)
-
 
         return self.devHandle
 
@@ -133,7 +138,7 @@ class ZKFP2:
         self._handle_error(ret)
 
 
-    def SetParameters(self, code: int, paramValue: Array[Byte] | bytes = bytes([1, 0, 0, 0]), size: int = 4) -> None:
+    def SetParameters(self, code: int, paramValue: bytes = bytes([1, 0, 0, 0]), size: int = 4) -> None:
         """
         Set a parameter.
 
@@ -145,7 +150,7 @@ class ZKFP2:
         if self.devHandle is None:
             raise DeviceNotInitializedError("Device not initialized.")
         
-        ret = self.zkfp2.SetParameters(self.devHandle, code, paramValue, len(paramValue))
+        ret = self._zkfp.SetParameters(code, paramValue, len(paramValue))
         self._handle_error(ret)
         return paramValue
 
@@ -164,7 +169,7 @@ class ZKFP2:
             raise DeviceNotInitializedError("Device not initialized.")
 
         paramValue = self.Int2ByteArray(0)
-        ret, size = self.zkfp2.GetParameters(self.devHandle, code, paramValue, 4)
+        ret, size = self._zkfp.GetParameters(code, paramValue, 4)
         self._handle_error(ret)
         return paramValue
 
@@ -185,14 +190,13 @@ class ZKFP2:
         if self.devHandle is None:
             raise DeviceNotInitializedError("Device not initialized.")
 
-        imgBuffer = Array[Byte](self.Width * self.Height)
+        imgBuffer = Array[Byte](self.width * self.height)
         template = Array[Byte](1024*2)  
         size = template.Length
 
         ret, size = self.zkfp2.AcquireFingerprint(self.devHandle, imgBuffer, template, size)
         if ret == 0: # only return when ther is a fingerprint captured
             return template, bytes(imgBuffer)
-            # i'm the biggest bird
 
         if ret != -8: 
             self._handle_error(ret) # something went wrong => raise error
@@ -208,7 +212,7 @@ class ZKFP2:
         Returns:
             bytes: Image data.
         """
-        imgBuffer = Array[Byte](self.Width * self.Height)
+        imgBuffer = Array[Byte](self.width * self.height)
 
         if self.devHandle is None:
             raise DeviceNotInitializedError("Device not initialized.")
@@ -345,7 +349,7 @@ class ZKFP2:
         return score_result
 
 
-    def Blob2Base64String(self, buf: bytes | Array[Byte]) -> str:
+    def Blob2Base64String(self, buf: bytes) -> str:
         """
         Convert a byte[] array into a Base64 string.
 
@@ -358,7 +362,7 @@ class ZKFP2:
         """
         # the sdk's function wasn't really working for me, so i made my own with PIL
 
-        # SKD's function
+        # SKD's function:
         # strBase64 = String.Empty
 
         # ret, result = zkfp.Blob2Base64String(buf, len(buf) if isinstance(buf, bytes) else buf.Length, strBase64)
@@ -370,7 +374,7 @@ class ZKFP2:
             buf = bytes(buf)
 
         bf = BytesIO()
-        image = Image.frombytes("L", (self.Width, self.Height), buf)
+        image = Image.frombytes("L", (self.width, self.height), buf)
         image.save(bf, format="PNG")
         return b64encode(bf.getvalue()).decode("utf-8")
 
@@ -453,4 +457,18 @@ class ZKFP2:
             # If you think you have a solution/addition to this part of the code, please open a PR.
 
         Thread(target=light_thread).start()
+
+    
+    def show_image(self, img: bytes):
+        """
+        Show an image.
+
+        Args:
+            img (bytes): Image data.
+        """
+        if not isinstance(img, bytes):
+            img = bytes(img)
+
+        image = Image.frombytes("L", (self.width, self.height), img)
+        image.show()
 
