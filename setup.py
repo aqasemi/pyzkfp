@@ -10,7 +10,7 @@ long_description = (base_path / "Readme.md").read_text()
 setup(
     name='pyzkfp',
     packages=find_packages(),
-    version='0.1.4',
+    version='0.1.5',
     license="GPLv3",
     description=DESCRIPTION,
     long_description=long_description,
