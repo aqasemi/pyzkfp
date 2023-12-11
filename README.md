@@ -35,14 +35,14 @@ Here's a simple example of how to use this library:
 ```python
 from pyzkfp import ZKFP2
 
-# Initialize the ZKFP2 class
+
 zkfp2 = ZKFP2()
-zkfp2.Init()
+zkfp2.Init() # Initialize the ZKFP2 class
 
 # Get device count and open first device
 device_count = zkfp2.GetDeviceCount()
-logger.info(f"{device_count} Devices found, Connecting to the first device.")
-zkfp2.OpenDevice(0)
+print(f"{device_count} devices found")
+zkfp2.OpenDevice(0) # connect to the first device
 ```
 
 ### Capture a fingerprint
@@ -57,16 +57,17 @@ while True:
 ### Perform a 1:N comparison
 ```python
 tmp, img = capture
-finger_id, score = zkfp2.DBIdentify(tmp)
+fingerprint_id, score = zkfp2.DBIdentify(tmp)
 ```
 
 ### Perform a 1:1 comparison
+Usually used to make sure the same finger is scanned throughout the fingerprint registration process. 
 ```python
 res = zkfp2.DBMatch(template1, template2) # returns 1 if match, 0 if not
 ```
 
 ### Register a fingerprint
-In order to register a fingerprint, we must collect 3 templates from the same finger. And then we can merge them into one template and store it in the device's database.
+In order to register a fingerprint, we must collect a bunch of (ideally 3) fingerprints of the same finger. And then we can merge them into one template and store it in the device's database.
 ```python
 templates = []
 for i in range(3):
@@ -90,7 +91,7 @@ Given that the device's memory clears upon shutdown, this step is crucial for pr
 
 ```python
 
-members = ... # load members' `regTemp` and their corresponding fingerPrintId from your database.
+members = ... # load members' regTemp and their corresponding fingerprint_id from your database.
 
 for member in members:
     fid, temp = member
