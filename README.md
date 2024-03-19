@@ -4,7 +4,7 @@
 [![PyPI version](https://badge.fury.io/py/pyzkfp.svg)](https://badge.fury.io/py/pyzkfp)
 
 ## Overview
-Because ZKTeco offical SDKs suck and are unstable and full of bugs, I decided to make a simple python wrapper library of their SDKs and save you from the agony of using their products.
+Because ZKTeco offical SDK sucks, I decided to make a simple python wrapper library of their SDKs and save you from the agony of using their products.
 
 ## Why?
 why not?
