@@ -4,10 +4,7 @@
 [![PyPI version](https://badge.fury.io/py/pyzkfp.svg)](https://badge.fury.io/py/pyzkfp)
 
 ## Overview
-Because ZKTeco offical SDK sucks, I decided to make a simple python wrapper library of their SDKs and save you from the agony of using their products.
-
-## Why?
-why not?
+This is a python wrapper library of the ZKTeco SDK.
 
 ## Compatibility
 This library can connect to `SLK20R` and ZK series, including `ZK9500`, `ZK6500`, `ZK8500R` devices.
@@ -25,7 +22,9 @@ This library can connect to `SLK20R` and ZK series, including `ZK9500`, `ZK6500`
 - Capture fingerprint images.
 - Perform fingerprint 1:1 comparisons.
 - Perform fingerprint 1:N comparisons.
-- Register and identify users.
+- Show captured fingerprints (reuqires Pillow).
+- Register/Delete fingerprints to and from the device's DB.
+- Identify users' fingerprints.
 - Light & Beep control functions.
 
 ## Usage
@@ -99,6 +98,11 @@ for member in members:
     ...  
 ```
 
+### To display a fingerprint
+```python
+tmp, img = capture
+zkfp2.show_image(img) # requires Pillow lib
+```
 
 ### To turn on/off the light
 ```python
