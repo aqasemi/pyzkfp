@@ -10,9 +10,9 @@ This is a python wrapper library of the ZKTeco SDK.
 This library can connect to `SLK20R` and ZK series, including `ZK9500`, `ZK6500`, `ZK8500R` devices.
  
 ## Installation
-- On linux and MacOS: you should have a .NET runtime (or Mono) installed. 
+On linux and MacOS: A .NET (or Mono) runtime is required. Windows is equipped with one by default
 - You have to first install the ZKFinger SDK from the offical website [here](https://www.zkteco.com/en/Biometrics_Module_SDK/) 
-- Then install this library via pip:
+- Then install this library:
     ```bash
     pip install pyzkfp
     ```
@@ -26,6 +26,10 @@ This library can connect to `SLK20R` and ZK series, including `ZK9500`, `ZK6500`
 - Register/Delete fingerprints to and from the device's DB.
 - Identify users' fingerprints.
 - Light & Beep control functions.
+
+## Note
+This repo doesn't follow the naming conventions of Python. This repo doesn't implmenet or add any extra functionalties. It's just a binding to the C# executable. 
+This library is fully compatible with zkteco's documentation (found inside the SDK zip file), you can read them to learn more. 
 
 ## Usage
 Here's a simple example of how to use this library:
@@ -98,13 +102,13 @@ for member in members:
     ...  
 ```
 
-### To display a fingerprint
+### Display a fingerprint
 ```python
 tmp, img = capture
 zkfp2.show_image(img) # requires Pillow lib
 ```
 
-### To turn on/off the light
+### Turn on/off the light
 ```python
 zkfp2.Light('green') # green/red/white
 ```
@@ -116,5 +120,3 @@ zkfp2.Terminate()
 
 For more detailed usage instructions, please refer to the example folder (WIP).
 
-## Support My Work
-If you found this project useful, please hire a private investigator to legally blackmail ZKTeco's dev team, as this would really help spread the good word of this repository.
